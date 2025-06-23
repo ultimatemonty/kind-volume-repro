@@ -1,0 +1,12 @@
+$ DATA_PATH=$(pwd)/data envsubst < repro.yml | kubectl apply -f -                                                                                                                                                                                                                                                                                                                                           [09:13:49]
+namespace/repro created
+deployment.apps/nginx-deployment created
+
+$ kubectl -n repro get pods                                                                                                                                                                                                                                                                                                                                                                                       [09:13:56]
+NAME                               READY   STATUS    RESTARTS   AGE
+nginx-deployment-7665d59fc-mvffg   1/1     Running   0          8s
+
+$ kubectl -n repro exec -it pod/nginx-deployment-7665d59fc-mvffg -- bash                                                                                                                                                                                                                                                                                                                                          [09:14:04]
+root@nginx-deployment-7665d59fc-mvffg:/# ls /data
+kind.txt  kubeadm.txt
+root@nginx-deployment-7665d59fc-mvffg:/#
